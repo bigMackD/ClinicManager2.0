@@ -37,7 +37,7 @@ namespace ClinicManager
             NameLabel.Content = Patient.FirstName + " " + Patient.SecondName;
             PhoneTextBox.Text = Patient.PhoneNumber;
             EmailTextBox.Text = Patient.Email;
-            AgeTextBox.Text = (2016 - Patient.BirthDate.Year).ToString();
+            AgeTextBox.Text = (DateTime.Now.Year - Patient.BirthDate.Year).ToString();
             Image.Source = new BitmapImage(new Uri(Patient.Photo, UriKind.Relative));
         }
 
