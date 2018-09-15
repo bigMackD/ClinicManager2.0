@@ -55,6 +55,7 @@ namespace ClinicManager
         private void PatientsListBox_OnSelected(object sender, RoutedEventArgs e)
         {
             EditButton.IsEnabled = true;
+            MenuEditButton.IsEnabled = true;
             var selectedPatient = (Patient) ((ListBox) sender).SelectedItem;
             NameTextBox.Text = selectedPatient.FirstName + " " + selectedPatient.SecondName;
             EmailTextBox.Text = selectedPatient.Email;
