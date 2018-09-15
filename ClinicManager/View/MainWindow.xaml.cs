@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ClinicManager.ViewModel;
 using Newtonsoft.Json;
+using ClinicManager.ViewModelLocator;
 
 namespace ClinicManager
 {
@@ -27,8 +28,9 @@ namespace ClinicManager
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = ViewModelLocator.ViewModelLocator.MainWindowViewModel;
 
-            DataContext = new MainWindowViewModel();
+           // DataContext = new MainWindowViewModel();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
