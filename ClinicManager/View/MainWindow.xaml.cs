@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ClinicManager.ViewModel;
 using Newtonsoft.Json;
 
 namespace ClinicManager
@@ -27,42 +28,7 @@ namespace ClinicManager
         {
             InitializeComponent();
 
-            PatientsListBox.ItemsSource = LoadFromFile();
-        }
-
-        private Patient[] LoadFromFile()
-        {
-            var allText = File.ReadAllText("samplePatients.json");
-            var jsonSerializer = JsonSerializer.Create(new JsonSerializerSettings()
-            {
-                DateFormatString = "dd/MM/yyyy"
-            });
-            var patients = jsonSerializer.Deserialize<List<Patient>>(new JsonTextReader(new StringReader(allText)));
-            for (var i = 0; i < patients.Count; i++)
-            {
-                var patient = patients[i];
-                patient.Photo = GetPhotoForUser(patient);
-            }
-
-            return patients.ToArray();
-        }
-
-        private static string GetPhotoForUser(Patient patient)
-        {
-            return patient.InsuranceNumber.Last() % 2 == 0 ? "Photos/male.png" : "Photos/female.png";
-        }
-
-        private void PatientsListBox_OnSelected(object sender, RoutedEventArgs e)
-        {
-            EditButton.IsEnabled = true;
-            MenuEditButton.IsEnabled = true;
-            var selectedPatient = (Patient) ((ListBox) sender).SelectedItem;
-            NameTextBox.Text = selectedPatient.FirstName + " " + selectedPatient.SecondName;
-            EmailTextBox.Text = selectedPatient.Email;
-            PhoneTextBox.Text = selectedPatient.PhoneNumber;
-            AgeTextBox.Text = ((DateTime.Now.Year - selectedPatient.BirthDate.Year) ).ToString();
-            InsuranceNumberTextBox.Text = selectedPatient.InsuranceNumber;
-            Photo.Source = new BitmapImage(new Uri(selectedPatient.Photo, UriKind.Relative));
+            DataContext = new MainWindowViewModel();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

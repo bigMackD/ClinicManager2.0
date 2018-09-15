@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClinicManager"
+        xmlns:viewModel ="clr-namespace:ClinicManager.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
@@ -11,7 +12,8 @@
         <TabControl HorizontalAlignment="Left" Height="378" Margin="10,33,0,0" VerticalAlignment="Top" Width="773">
             <TabItem Header="Patients">
                 <Grid Background="#FFE5E5E5">
-                    <ListBox x:Name="PatientsListBox" HorizontalAlignment="Left" Background="DarkOrange" Height="329" Margin="10,10,0,0" VerticalAlignment="Top" Width="373" SelectionChanged="PatientsListBox_OnSelected">
+                    <ListBox x:Name="PatientsListBox"  ItemsSource ="{Binding AllPatients}" 
+                                   SelectedItem="{Binding SelectedPatient}" HorizontalAlignment="Left" Background="DarkOrange" Height="329" Margin="10,10,0,0" VerticalAlignment="Top" Width="373">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <local:PatientUserControl></local:PatientUserControl>
@@ -19,15 +21,15 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                     <TextBlock HorizontalAlignment="Left" Margin="393,11,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top"/>
-                    <TextBox x:Name="NameTextBox" HorizontalAlignment="Left" Height="23" Margin="447,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="310"/>
+                    <TextBox x:Name="NameTextBox" HorizontalAlignment="Left" Height="23" Margin="447,10,0,0" TextWrapping="Wrap" Text="{Binding SelectedPatient.FullName, Mode=OneWay}" VerticalAlignment="Top" Width="310"/>
                     <TextBlock HorizontalAlignment="Left" Margin="393,39,0,0" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top"/>
-                    <TextBox x:Name="EmailTextBox" HorizontalAlignment="Left" Height="23" Margin="447,38,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="310"/>
+                    <TextBox x:Name="EmailTextBox" HorizontalAlignment="Left" Height="23" Margin="447,38,0,0" TextWrapping="Wrap" Text="{Binding SelectedPatient.Email}" VerticalAlignment="Top" Width="310"/>
                     <TextBlock HorizontalAlignment="Left" Margin="393,67,0,0" TextWrapping="Wrap" Text="Phone" VerticalAlignment="Top"/>
-                    <TextBox x:Name="PhoneTextBox" HorizontalAlignment="Left" Height="23" Margin="446,66,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="310"/>
+                    <TextBox x:Name="PhoneTextBox" HorizontalAlignment="Left" Height="23" Margin="446,66,0,0" TextWrapping="Wrap" Text="{Binding SelectedPatient.PhoneNumber}" VerticalAlignment="Top" Width="310"/>
                     <TextBlock HorizontalAlignment="Left" Margin="393,95,0,0" TextWrapping="Wrap" Text="Insurance" VerticalAlignment="Top"/>
-                    <TextBox x:Name="InsuranceNumberTextBox" HorizontalAlignment="Left" Height="23" Margin="446,94,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="310"/>
+                    <TextBox x:Name="InsuranceNumberTextBox" HorizontalAlignment="Left" Height="23" Margin="446,94,0,0" TextWrapping="Wrap" Text="{Binding SelectedPatient.InsuranceNumber}" VerticalAlignment="Top" Width="310"/>
                     <TextBlock HorizontalAlignment="Left" Margin="394,123,0,0" TextWrapping="Wrap" Text="Age" VerticalAlignment="Top"/>
-                    <TextBox x:Name="AgeTextBox" HorizontalAlignment="Left" Height="23" Margin="447,122,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="310"/>
+                    <TextBox x:Name="AgeTextBox" HorizontalAlignment="Left" Height="23" Margin="447,122,0,0" TextWrapping="Wrap" Text="{Binding SelectedPatient.Age, Mode=OneWay}" VerticalAlignment="Top" Width="310"/>
                     <Image x:Name="Photo" HorizontalAlignment="Left" Height="189" Margin="570,150,0,0" VerticalAlignment="Top" Width="187"/>
                     <Button x:Name="EditButton" IsEnabled="False" Content="Edit" HorizontalAlignment="Left" Margin="394,319,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
                 </Grid>
