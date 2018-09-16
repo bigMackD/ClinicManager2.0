@@ -19,7 +19,7 @@ namespace ClinicManager
     /// </summary>
     public partial class PatientDetailView : Window
     {
-        public Patient Patient { get; set; }
+        public PatientViewModel Patient { get; set; }
 
         public PatientDetailView()
         {

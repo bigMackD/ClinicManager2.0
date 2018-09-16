@@ -36,14 +36,14 @@ namespace ClinicManager
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             PatientDetailView detailView = new PatientDetailView();
-            detailView.Patient = ((Patient) PatientsListBox.SelectedItem);
+            detailView.Patient = ((PatientViewModel) PatientsListBox.SelectedItem);
             detailView.ShowDialog();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             PatientDetailView detailView = new PatientDetailView();
-            detailView.Patient = ((Patient) PatientsListBox.SelectedItem);
+            detailView.Patient = ((PatientViewModel) PatientsListBox.SelectedItem);
             detailView.ShowDialog();
         }
 

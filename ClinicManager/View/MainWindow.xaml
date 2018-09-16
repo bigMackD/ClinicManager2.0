@@ -41,7 +41,7 @@
         <Menu HorizontalAlignment="Left" Height="28" VerticalAlignment="Top" Width="793">
             <MenuItem Header="Patient">
                 <MenuItem Header="Add"></MenuItem>
-                <MenuItem Header="Edit" Click="MenuItem_Click"  x:Name="MenuEditButton" IsEnabled="False"></MenuItem>
+                <MenuItem  Command="{Binding EditCommand}" Header="Edit" Click="MenuItem_Click"  x:Name="MenuEditButton" IsEnabled="False"></MenuItem>
                 <MenuItem Header="Save All" Click="MenuItem_Click_1"></MenuItem>
             </MenuItem>
         </Menu>
