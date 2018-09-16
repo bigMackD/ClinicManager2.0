@@ -67,6 +67,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CustomCommand.cs" />
+    <Compile Include="EditCommand.cs" />
     <Compile Include="ViewModelLocator\ViewModelLocator.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">

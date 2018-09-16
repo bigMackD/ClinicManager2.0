@@ -1,4 +1,4 @@
-﻿using ClinicManager.ClinicManager.Utility;
+﻿using ClinicManager.Utility;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace ClinicManager.ViewModel
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        public ICommand EditCommand { get; set; }
+        public EditCommand EditCommand { get; set; }
       
         private PatientViewModel _selectedPatient;
         public ObservableCollection<PatientViewModel> AllPatients { get; set; }
@@ -26,31 +26,14 @@ namespace ClinicManager.ViewModel
             {
                 _selectedPatient = value;
 
-                PropertyChanged(this, new PropertyChangedEventArgs("SelectedPatient"));
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs("SelectedPatient"));
+                EditCommand.InvokeCanExecuteChanged();
             }
         }
-        private void Edit(object param)
-        {
-            PatientDetailView view = new PatientDetailView();
-            view.Patient = SelectedPatient;
-            view.ShowDialog();
-        }
-
-        private bool CanEdit(object param)
-        {
-            if (SelectedPatient != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
+      
         public MainWindowViewModel()
         {
-            EditCommand = new CustomCommand(Edit,CanEdit);
+            EditCommand = new EditCommand();
             AllPatients = new ObservableCollection<PatientViewModel>();
             var allPatients = LoadFromFile();
             foreach (var patient in allPatients)
