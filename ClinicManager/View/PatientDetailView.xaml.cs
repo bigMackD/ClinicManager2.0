@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClinicManager.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ClinicManager.ViewModelLocator;
 
 namespace ClinicManager
 {
@@ -24,6 +26,7 @@ namespace ClinicManager
         public PatientDetailView()
         {
             InitializeComponent();
+            DataContext = ViewModelLocator.ViewModelLocator.PatientDetailViewModel;
             this.Loaded += DetailView_Loaded;
         }
 
@@ -43,6 +46,9 @@ namespace ClinicManager
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
+            DeletePatient deletePatient = new DeletePatient();
+            deletePatient.patientTodelete =  Patient;
+            Messenger.Default.Send(deletePatient);
             this.Close();
         }
 

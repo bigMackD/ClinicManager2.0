@@ -10,6 +10,6 @@ namespace ClinicManager.ViewModelLocator
     public class ViewModelLocator
     {
         public static MainWindowViewModel MainWindowViewModel = new MainWindowViewModel();
-       // public static PatientDetailViewModel PatientDetailViewModel = new PatientDetailViewModel();
+        public static PatientDetailViewModel PatientDetailViewModel = new PatientDetailViewModel();
     }
 }

@@ -1,5 +1,4 @@
-﻿using ClinicManager.Utility;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using ClinicManager;
+using ClinicManager.Utilities;
 
 namespace ClinicManager.ViewModel
 {
@@ -25,9 +25,14 @@ namespace ClinicManager.ViewModel
             set
             {
                 _selectedPatient = value;
+                if(PropertyChanged != null)
+                {
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("SelectedPatient"));
+                    EditCommand.InvokeCanExecuteChanged();
+                }
+               
+                Messenger.Default.Send(_selectedPatient);
 
-                PropertyChanged.Invoke(this, new PropertyChangedEventArgs("SelectedPatient"));
-                EditCommand.InvokeCanExecuteChanged();
             }
         }
       
@@ -40,6 +45,13 @@ namespace ClinicManager.ViewModel
             {
                 AllPatients.Add(patient);
             }
+            Messenger.Default.Register<DeletePatient>(this, deletePatient);
+        }
+
+        private void deletePatient(DeletePatient obj)
+        {
+            AllPatients.Remove(obj.patientTodelete);
+          
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
