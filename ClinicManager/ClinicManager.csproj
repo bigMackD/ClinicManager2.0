@@ -66,7 +66,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="EditCommand.cs" />
+    <Compile Include="Utilities\EditCommand.cs" />
+    <Compile Include="ViewModel\PatientViewModel.cs" />
+    <Compile Include="Services\DialogService.cs" />
+    <Compile Include="Services\PatientDataService.cs" />
     <Compile Include="Utilities\DeletePatient.cs" />
     <Compile Include="Utilities\Messenger.cs" />
     <Compile Include="ViewModelLocator\ViewModelLocator.cs" />

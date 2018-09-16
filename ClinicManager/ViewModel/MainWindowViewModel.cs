@@ -11,15 +11,23 @@ using System.Windows;
 using System.Windows.Input;
 using ClinicManager;
 using ClinicManager.Utilities;
+using ClinicManager.Services;
 
 namespace ClinicManager.ViewModel
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         public EditCommand EditCommand { get; set; }
+        private PatientDataService _patientDataService;
+        private DialogService _dialogService;
       
         private PatientViewModel _selectedPatient;
         public ObservableCollection<PatientViewModel> AllPatients { get; set; }
+
+        void Edit(object param)
+        {
+            _dialogService.ShowPatientsDetailDialog();
+        }
         public PatientViewModel SelectedPatient {
             get => _selectedPatient;
             set
@@ -38,9 +46,11 @@ namespace ClinicManager.ViewModel
       
         public MainWindowViewModel()
         {
+            _dialogService = new DialogService();
+            _patientDataService = new PatientDataService();
             EditCommand = new EditCommand();
             AllPatients = new ObservableCollection<PatientViewModel>();
-            var allPatients = LoadFromFile();
+            var allPatients = _patientDataService.GetAllPatients().Select(x=>PatientViewModel.FromModel(x));
             foreach (var patient in allPatients)
             {
                 AllPatients.Add(patient);
@@ -51,32 +61,15 @@ namespace ClinicManager.ViewModel
         private void deletePatient(DeletePatient obj)
         {
             AllPatients.Remove(obj.patientTodelete);
+            _patientDataService.DeletePatient(obj.patientTodelete.Model);            
           
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private PatientViewModel[] LoadFromFile()
-        {
-            var allText = File.ReadAllText("samplePatients.json");
-            var jsonSerializer = JsonSerializer.Create(new JsonSerializerSettings()
-            {
-                DateFormatString = "dd/MM/yyyy"
-            });
-            var patients = jsonSerializer.Deserialize<List<PatientViewModel>>(new JsonTextReader(new StringReader(allText)));
-            for (var i = 0; i < patients.Count; i++)
-            {
-                var patient = patients[i];
-                patient.Photo = GetPhotoForUser(patient);
-            }
+       
 
-            return patients.ToArray();
-        }
-
-        private static string GetPhotoForUser(PatientViewModel patient)
-        {
-            return patient.InsuranceNumber.Last() % 2 == 0 ? "Photos/male.png" : "Photos/female.png";
-        }
+      
 
        
     }
